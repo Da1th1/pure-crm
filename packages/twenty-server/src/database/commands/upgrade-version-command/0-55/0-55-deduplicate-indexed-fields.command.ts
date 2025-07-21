@@ -148,9 +148,11 @@ export class DeduplicateIndexedFieldsCommand extends ActiveOrSuspendedWorkspaces
         order: { createdAt: 'DESC' },
       });
 
+      const emailParts = person_emailsPrimaryEmail.split('@');
+
       for (let i = 1; i < persons.length; i++) {
         const newEmail = person_emailsPrimaryEmail?.includes('@')
-          ? `${person_emailsPrimaryEmail.split('@')[0]}+${i}@${person_emailsPrimaryEmail.split('@')[1]}`
+          ? `${emailParts[0]}+${i}@${emailParts[1]}`
           : `${person_emailsPrimaryEmail}+${i}`;
 
         if (!dryRun) {
